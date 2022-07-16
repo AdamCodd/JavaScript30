@@ -60,13 +60,13 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
   <script>
-    let allcodes = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
-
+    // Suboptimal solution, should have checked if event.keyCode return null and fire the audio
+    const allcodes = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
     document.addEventListener('keydown', function (event) {
       allcodes.forEach(code => {
         if (event.key.toUpperCase() === code) {
-          let audiofile = document.querySelector("audio[data-key=\'" + event.keyCode + "\']");
-          let letter = document.querySelector("div[data-key=\'" + event.keyCode + "\']");
+          const audiofile = document.querySelector("audio[data-key=\'" + event.keyCode + "\']");
+          const letter = document.querySelector("div[data-key=\'" + event.keyCode + "\']");
           letter.classList.toggle("playing");
           audiofile.play();
           audiofile.currentTime = 0;
@@ -80,7 +80,7 @@
     document.addEventListener('keyup', function (event) {
       for (let code of allcodes) {
         if (event.key.toUpperCase() === code) {
-          let letter = document.querySelector("div[data-key=\'" + event.keyCode + "\']");
+          const letter = document.querySelector("div[data-key=\'" + event.keyCode + "\']");
           letter.classList.remove("playing");
         }
       }
