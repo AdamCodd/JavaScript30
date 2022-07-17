@@ -85,8 +85,8 @@
     function Clock() {
       const date = new Date();
       const sec = 90 + (360 / 60) * date.getSeconds();
-      const min = 90 + (360 / 60) * date.getMinutes() + (sec / 60);
-      const hour = 90 + (360 / 12) * date.getHours() + (min / 60);
+      const min = 90 + (360 / 60) * date.getMinutes() + ((360 / 60) * date.getSeconds()) / 60;
+      const hour = 90 + (360 / 12) * date.getHours() + ((360 / 60) * date.getMinutes()) / 12;
       console.log(sec);
       hoursHandle.style.setProperty('transform', `rotate(${hour}deg)`);
       minutesHandle.style.setProperty('transform', `rotate(${min}deg)`);
