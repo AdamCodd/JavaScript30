@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Scoped CSS Variables and JS</title>
 </head>
+
 <body>
   <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
 
@@ -21,10 +23,23 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
-
     /*
       misc styles, nothing to do with CSS variables
     */
+    :root {
+      --spacing: 10px;
+      --blur: 10px;
+      --base: #ffc600;
+    }
+
+    img {
+      border: var(--spacing) solid var(--base);
+      filter: blur(var(--blur));
+    }
+
+    .hl {
+      color: var(--base);
+    }
 
     body {
       text-align: center;
@@ -45,7 +60,33 @@
   </style>
 
   <script>
+    const spacing = document.getElementById('spacing');
+    const blur = document.getElementById('blur');
+    const color = document.getElementById('base');
+    const img = document.querySelector('img');
+    const hl = document.querySelector('.hl');
+
+    function changeValue() {
+      img.style.border = `${spacing.value}px solid ${color.value}`;
+      img.style.filter = `blur(${blur.value}px)`;
+      hl.style.color = `${color.value}`;
+    } changeValue();
+
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => input.addEventListener('input', changeValue))
+
+    /* Other solution */
+    /*
+    
+        const inputs = document.querySelectorAll('.controls input');
+    
+        function handleUpdate() {
+          const suffix = this.dataset.sizing || '';
+          document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+        }
+    */
   </script>
 
 </body>
+
 </html>
