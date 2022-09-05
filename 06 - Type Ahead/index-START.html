@@ -21,33 +21,34 @@
     const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
 
     const suggest = document.querySelector('.suggestions');
+    const cities = [];
+    fetch(endpoint)
+      .then(jsonData => jsonData.json())
+      .then(data => cities.push(...data))
+      .catch(console.error);
+
 
     function match() {
       let input;
       return function (e) {
         input = e.target.value;
         suggest.textContent = '';
-        fetch(endpoint)
-          .then(jsonData => jsonData.json())
-          .then(data => getData(data))
-          .catch(console.error);
-        let getData = (data) => {
-          let content = Object.values(data).filter(item => item.city.toLowerCase().includes(input) || item.state.toLowerCase().includes(input));
-          content.forEach(element => {
-            let panel = document.createElement('li');
-            let panelName = document.createElement('span');
-            panelName.textContent = `${element.city}, ${element.state}`;
-            panelName.classList.add('name');
-            let panelPop = document.createElement('span');
-            panelPop.textContent = `${Number(element.population).toLocaleString()}`;
-            panelPop.classList.add('population');
-            panel.appendChild(panelName);
-            panel.appendChild(panelPop);
-            suggest.appendChild(panel);
-          });
-          console.log("Content: ", content);
-        };
-      }
+        let content = Object.values(cities).filter(item => item.city.toLowerCase().includes(input) || item.state.toLowerCase().includes(input));
+        content.forEach(element => {
+          let panel = document.createElement('li');
+          let panelName = document.createElement('span');
+          panelName.textContent = `${element.city}, ${element.state}`;
+          panelName.classList.add('name');
+          let panelPop = document.createElement('span');
+          panelPop.textContent = `${Number(element.population).toLocaleString()}`;
+          panelPop.classList.add('population');
+          panel.appendChild(panelName);
+          panel.appendChild(panelPop);
+          suggest.appendChild(panel);
+
+        });
+        console.log("Content: ", content);
+      };
     }
 
     const search = document.querySelector('.search');
