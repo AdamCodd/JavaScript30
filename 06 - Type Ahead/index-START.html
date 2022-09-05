@@ -33,6 +33,7 @@
       return function (e) {
         input = e.target.value;
         suggest.textContent = '';
+        let fragment = new DocumentFragment();
         let content = Object.values(cities).filter(item => item.city.toLowerCase().includes(input) || item.state.toLowerCase().includes(input));
         content.forEach(element => {
           let panel = document.createElement('li');
@@ -44,9 +45,9 @@
           panelPop.classList.add('population');
           panel.appendChild(panelName);
           panel.appendChild(panelPop);
-          suggest.appendChild(panel);
-
+          fragment.appendChild(panel)
         });
+        suggest.appendChild(fragment);
         console.log("Content: ", content);
       };
     }
