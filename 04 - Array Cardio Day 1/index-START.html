@@ -90,6 +90,8 @@
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
+    // First value of "obj" is {} which set item as an attribute of obj when obj[item]. 
+    // If the attribute doesn't exist it's set to 0 then incremented
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck'];
     const transportation = data.reduce((obj, item) => {
       if (!obj[item]) {
